@@ -5,7 +5,7 @@ pipeline {
         }
     }
 
-    /* tools {
+   /* tools {
         sonarqubeScanner "Sonar"
     } */
 
@@ -34,11 +34,12 @@ pipeline {
             }
         }
 
-        stage('Sonar Analysis') {
+        stage('Sonar') {
             steps {
                 script {
-                    withSonarQubeEnv(credentials: 'Sonar-token') {
-                        sh "echo '${env.SUDO_PASSWORD}' | sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample"
+                    def scannerHome = tool 'Sonar'
+                    withSonarQubeEnv(credentialsId: 'Sonar-token') {
+                        sh "echo '${env.SUDO_PASSWORD}' | sudo -S ${scannerHome}/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample"
                     }
                 }
             }
