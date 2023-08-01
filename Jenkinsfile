@@ -5,7 +5,7 @@ pipeline {
         }
     }
 
-  /*  tools {
+    /* tools {
         nodejs "Nodejs"
     } */
 
@@ -14,6 +14,12 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'npm run build'
+            }
+        }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
             }
         }
     }
