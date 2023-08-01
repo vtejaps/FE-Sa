@@ -32,11 +32,11 @@ pipeline {
             }
         } */
 
-        stage('Sonar') {
+        stage('Sonar Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv(credentials: 'sonar') {
-                        sh /* "echo '${SUDO_PASSWORD}' | */ 'sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=test2 -Dsonar.projectKey=test2'
+                    withSonarQubeEnv(credentials: 'Sonar') {
+                        sh /* "echo '${SUDO_PASSWORD}' | */ 'sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample'
                     }
                 }
             }
