@@ -37,7 +37,7 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'Sonar') {
+                    withSonarQubeEnv(credentials: 'Sonar-token') {
                         sh "echo '${env.SUDO_PASSWORD}' | sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample"
                     }
                 }
