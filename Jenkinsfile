@@ -5,9 +5,9 @@ pipeline {
         }
     }
 
-    /* tools {
-        nodejs "Nodejs"
-    } */
+     tools {
+        sonarqubeScanner "Sonar"
+    } 
 
     stages {
         stage('Build') {
