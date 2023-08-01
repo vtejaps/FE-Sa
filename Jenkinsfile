@@ -5,10 +5,6 @@ pipeline {
         }
     }
 
-     tools {
-        sonarqubeScanner "Sonar"
-    } 
-
     stages {
         stage('Build') {
             steps {
