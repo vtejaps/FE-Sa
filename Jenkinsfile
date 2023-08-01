@@ -5,9 +5,9 @@ pipeline {
         }
     }
 
-   /* tools {
+    tools {
         sonarqubeScanner "Sonar"
-    } */
+    }
 
     stages {
         stage('Build') {
@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        /* stage('Credentials') {
+        stage('Credentials') {
             steps {
                 script {
                     def sudoPassword = input(
@@ -28,15 +28,17 @@ pipeline {
                         ]
                     ).toString()
                     sh 'echo "$sudoPassword"'
+                    // Save the password to an environment variable for later use
+                    env.SUDO_PASSWORD = sudoPassword
                 }
             }
-        } */
+        }
 
         stage('Sonar Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv(credentials: 'Sonar') {
-                        sh /* "echo '${SUDO_PASSWORD}' | */ 'sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample'
+                    withSonarQubeEnv(credentialsId: 'Sonar') {
+                        sh "echo '${env.SUDO_PASSWORD}' | sudo -S /opt/Sonar-scanner/bin/sonar-scanner -Dsonar.projectName=FE-Sample -Dsonar.projectKey=FE-Sample"
                     }
                 }
             }
